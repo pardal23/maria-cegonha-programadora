@@ -1,0 +1,457 @@
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Cegonha — Motor Completo</title>
+</head>
+<body>
+
+<h2>Conteúdo principal</h2>
+<div id="conteudo">
+<cegonha>
+cegonha("Motor Cegonha — COMPLETO<br><br>")
+
+funcao dobro(x) {
+    return x * 2
+}
+
+nome = "João"
+idade = 17
+
+cegonha("Nome: ")
+cegonha(nome)
+cegonha("<br>Idade: ")
+cegonha(idade)
+cegonha("<br><br>")
+
+se (idade >= 18) {
+    cegonha("Maior de idade<br>")
+}
+senao {
+    cegonha("Menor de idade<br>")
+}
+
+cegonha("Dobro da idade: ")
+cegonha( dobro(idade) )
+cegonha("<br><br>")
+
+cegonha("Hoje é: ")
+cegonha( data() )
+cegonha("<br>Agora são: ")
+cegonha( hora() )
+</cegonha>
+</div>
+
+<hr>
+
+<h2>Conteúdo 1 — Super Cálculos</h2>
+<div id="conteudo1">
+<cegonha>
+cegonha("=== SUPER CÁLCULOS ===<br><br>")
+
+a = 10
+b = 3
+
+cegonha("Soma: ")
+cegonha(a + b)
+cegonha("<br>")
+
+cegonha("Multiplicação: ")
+cegonha(a * b)
+cegonha("<br>")
+
+cegonha("Potência 2^8: ")
+cegonha(2 ** 8)
+cegonha("<br>")
+
+cegonha("Raiz de 144: ")
+cegonha( sqrt(144) )
+cegonha("<br>")
+
+cegonha("Trigonometria (sin): ")
+cegonha( sin(1) )
+cegonha("<br>")
+
+cegonha("Constante pi: ")
+cegonha(pi)
+</cegonha>
+</div>
+
+<hr>
+
+<h2>Conteúdo 2 — Arrays + Funções de lista</h2>
+<div id="conteudo2">
+<cegonha>
+cegonha("=== ARRAYS E LISTAS ===<br><br>")
+
+lista = [10, 20, 30, 40]
+
+cegonha("Lista: ")
+cegonha(lista)
+cegonha("<br>")
+
+se (soma(lista) > 50) {
+    cegonha("Lista grande<br>")
+}
+senao {
+    cegonha("Lista pequena<br>")
+}
+
+cegonha("Soma: ")
+cegonha( soma(lista) )
+cegonha("<br>")
+
+cegonha("Máximo: ")
+cegonha( maximo(lista) )
+cegonha("<br>")
+
+cegonha("Mínimo: ")
+cegonha( minimo(lista) )
+cegonha("<br>")
+
+cegonha("Média: ")
+cegonha( media(lista) )
+cegonha("<br>")
+
+cegonha("Tamanho (len): ")
+cegonha( len(lista) )
+cegonha("<br>")
+
+cegonha("Elemento índice 1: ")
+cegonha( lista[1] )
+</cegonha>
+</div>
+
+<hr>
+
+<h2>Conteúdo 3 — Strings avançadas</h2>
+<div id="conteudo3">
+<cegonha>
+cegonha("=== STRINGS AVANÇADAS ===<br><br>")
+
+texto = "Jesus é Rei"
+
+cegonha("Original: ")
+cegonha(texto)
+cegonha("<br>")
+
+cegonha("Upper: ")
+cegonha( upper(texto) )
+cegonha("<br>")
+
+cegonha("Lower: ")
+cegonha( lower(texto) )
+cegonha("<br>")
+
+cegonha("Repetir 3x: ")
+cegonha( repetir("Amém ", 3) )
+cegonha("<br>")
+
+cegonha("Cortar(0,5): ")
+cegonha( cortar(texto, 0, 5) )
+cegonha("<br>")
+
+cegonha("Loop ENQUANTO seguro (0 a 4):<br>")
+i = 0
+enquanto (i < 5) {
+    cegonha("i = ")
+    cegonha(i)
+    cegonha("<br>")
+    i = i + 1
+}
+</cegonha>
+</div>
+
+<script>
+/* ============================================================
+   FUNÇÕES EXTRA — SEGURAS, NÃO MEXEM NO MOTOR
+   ============================================================ */
+
+// Funções de lista
+function soma(arr) {
+    if (!Array.isArray(arr)) return 0;
+    return arr.reduce((a, b) => a + b, 0);
+}
+
+function maximo(arr) {
+    if (!Array.isArray(arr) || arr.length === 0) return 0;
+    return Math.max(...arr);
+}
+
+function minimo(arr) {
+    if (!Array.isArray(arr) || arr.length === 0) return 0;
+    return Math.min(...arr);
+}
+
+function media(arr) {
+    if (!Array.isArray(arr) || arr.length === 0) return 0;
+    return soma(arr) / arr.length;
+}
+
+function len(obj) {
+    if (Array.isArray(obj) || typeof obj === "string") return obj.length;
+    return 0;
+}
+
+// Funções de string
+function upper(str) {
+    return String(str).toUpperCase();
+}
+
+function lower(str) {
+    return String(str).toLowerCase();
+}
+
+function repetir(str, n) {
+    return String(str).repeat(n || 0);
+}
+
+function cortar(str, inicio, fim) {
+    return String(str).slice(inicio || 0, fim);
+}
+
+/* ============================================================
+   FUNÇÕES CEGONHA — REAIS
+   ============================================================ */
+
+window.funcoesCegonha = {};
+
+function processarFuncoesCegonha(linhas) {
+    let novasLinhas = [];
+    let capturar = false;
+    let nomeFunc = "";
+    let argsFunc = "";
+    let corpo = [];
+
+    linhas.forEach(l => {
+
+        if (l.startsWith("funcao ")) {
+            capturar = true;
+
+            let m = l.match(/funcao\s+(\w+)\s*\((.*?)\)\s*\{/);
+            if (m) {
+                nomeFunc = m[1];
+                argsFunc = m[2];
+            }
+            return;
+        }
+
+        if (capturar && l === "}") {
+            capturar = false;
+
+            window.funcoesCegonha[nomeFunc] = new Function(argsFunc, corpo.join("\n"));
+
+            corpo = [];
+            nomeFunc = "";
+            argsFunc = "";
+            return;
+        }
+
+        if (capturar) {
+            corpo.push(l);
+            return;
+        }
+
+        novasLinhas.push(l);
+    });
+
+    return novasLinhas;
+}
+
+/* ============================================================
+   ENQUANTO CEGONHA — SEGURO (máx. 100 loops)
+   ============================================================ */
+
+function processarEnquantoCegonha(linhas, resolver) {
+    let novas = [];
+    let i = 0;
+
+    while (i < linhas.length) {
+        let l = linhas[i];
+
+        // detectar: enquanto (condicao) {
+        if (/^enquanto\s*\(.*\)\s*\{$/.test(l)) {
+
+            let m = l.match(/^enquanto\s*\((.*)\)\s*\{$/);
+            let condExpr = m ? m[1] : "false";
+
+            // capturar bloco
+            let bloco = [];
+            i++;
+            while (i < linhas.length && linhas[i] !== "}") {
+                bloco.push(linhas[i]);
+                i++;
+            }
+            i++; // saltar }
+
+            // executar loop seguro
+            let limite = 0;
+            while (resolver(condExpr) && limite < 100) {
+                novas.push(...bloco);
+                limite++;
+            }
+
+            continue;
+        }
+
+        novas.push(l);
+        i++;
+    }
+
+    return novas;
+}
+
+/* ============================================================
+   MOTOR CEGONHA — COMPLETO E ESTÁVEL (BASE)
+   ============================================================ */
+
+function executarCegonhaEngine(html) {
+    return html.replace(/<cegonha>([\s\S]*?)<\/cegonha>/g, function(_, codigo) {
+
+        let vars = {};
+        let saida = "";
+
+        let linhas = codigo.split(/\r?\n/)
+            .map(l => l.trim())
+            .filter(l => l !== "");
+
+        // Funções Cegonha
+        linhas = processarFuncoesCegonha(linhas);
+
+        function resolver(expr) {
+            let r = expr;
+
+            // variáveis
+            for (let v in vars) {
+                r = r.replace(new RegExp("\\b" + v + "\\b", "g"), vars[v]);
+            }
+
+            // funções internas
+            r = r.replace(/data\(\)/g, JSON.stringify(new Date().toLocaleDateString()));
+            r = r.replace(/hora\(\)/g, JSON.stringify(new Date().toLocaleTimeString()));
+
+            // funções matemáticas
+            r = r.replace(/\bsqrt\(/g, "Math.sqrt(");
+            r = r.replace(/\babs\(/g, "Math.abs(");
+            r = r.replace(/\bround\(/g, "Math.round(");
+            r = r.replace(/\bfloor\(/g, "Math.floor(");
+            r = r.replace(/\bceil\(/g, "Math.ceil(");
+            r = r.replace(/\bsin\(/g, "Math.sin(");
+            r = r.replace(/\bcos\(/g, "Math.cos(");
+            r = r.replace(/\btan\(/g, "Math.tan(");
+            r = r.replace(/\blog\(/g, "Math.log(");
+
+            // constantes
+            r = r.replace(/\bpi\b/g, "Math.PI");
+            r = r.replace(/\be\b/g, "Math.E");
+
+            // chamadas de funções Cegonha
+            r = r.replace(/\b(\w+)\s*\((.*?)\)/g, function(_, nome, args) {
+                if (window.funcoesCegonha[nome]) {
+                    let partes = args.trim() === "" ? [] : args.split(",").map(a => resolver(a.trim()));
+                    return window.funcoesCegonha[nome](...partes);
+                }
+                return `${nome}(${args})`;
+            });
+
+            try { 
+                return new Function("return (" + r + ")")(); 
+            }
+            catch { 
+                return expr; 
+            }
+        }
+
+        // ENQUANTO — expandir loops em linhas
+        linhas = processarEnquantoCegonha(linhas, resolver);
+
+        // SE / SENAO
+        let linhasExecutar = [];
+        let i = 0;
+
+        while (i < linhas.length) {
+            let l = linhas[i];
+
+            // linha "se (condicao) {"
+            if (/^se\s*\(.*\)\s*\{$/.test(l)) {
+                let m = l.match(/^se\s*\((.*)\)\s*\{$/);
+                let condExpr = m ? m[1] : "false";
+
+                // coletar bloco do SE
+                let blocoSe = [];
+                i++;
+                while (i < linhas.length && linhas[i] !== "}") {
+                    blocoSe.push(linhas[i]);
+                    i++;
+                }
+                i++; // saltar "}"
+
+                // verificar se há SENAO logo a seguir
+                let blocoSenao = [];
+                if (i < linhas.length && /^senao\s*\{$/.test(linhas[i])) {
+                    i++; // linha "senao {"
+                    while (i < linhas.length && linhas[i] !== "}") {
+                        blocoSenao.push(linhas[i]);
+                        i++;
+                    }
+                    i++; // saltar "}"
+                }
+
+                // avaliar condição
+                let cond = resolver(condExpr);
+
+                if (cond) {
+                    linhasExecutar.push(...blocoSe);
+                } else {
+                    linhasExecutar.push(...blocoSenao);
+                }
+
+                continue;
+            }
+
+            // linha normal
+            linhasExecutar.push(l);
+            i++;
+        }
+
+        // EXECUTAR LINHAS FINAIS
+        linhasExecutar.forEach(l => {
+
+            // atribuição
+            if (l.includes("=") && !l.startsWith("cegonha(")) {
+                let [nome, valor] = l.split("=").map(s => s.trim());
+                vars[nome] = resolver(valor);
+                return;
+            }
+
+            // comando cegonha()
+            if (l.startsWith("cegonha(")) {
+                let conteudo = l.replace(/^cegonha\s*\(|\)$/g, "").trim();
+
+                if (conteudo.startsWith('"') || conteudo.startsWith("'")) {
+                    saida += conteudo.slice(1, -1);
+                } else {
+                    saida += resolver(conteudo);
+                }
+            }
+        });
+
+        return `<div style='padding:10px;background:#eee;border-left:4px solid purple'>${saida}</div>`;
+    });
+}
+
+window.onload = () => {
+    document.querySelectorAll("div[id^='conteudo']")
+        .forEach(div => div.innerHTML = executarCegonhaEngine(div.innerHTML));
+};
+</script>
+
+</body>
+</html>
+
+
+
+
