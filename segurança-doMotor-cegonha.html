@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -335,6 +336,42 @@ window.onload = () => {
         .forEach(div => div.innerHTML = executarCegonhaEngine(div.innerHTML));
 };
 </script>
+<p style="color:orange;"> (˶◕‿◕)🌹💕 cegonha(˶◕‿◕)🌹💕sja feliz por favor!(˶◕‿◕)🌹💕 Que Deus vos abençoe.(˶◕‿◕)🌹💕</p>
+<script>
+// 1. Sandbox (sem mexer no motor)
+function sandboxCegonhaProtegida(html) {
+
+    const proibidos = [
+        "window", "document", "eval", "Function",
+        "location", "innerHTML", "outerHTML",
+        "script", "onerror", "onload"
+    ];
+
+    return html.replace(/<cegonha>([\s\S]*?)<\/cegonha>/g, function(_, codigo) {
+
+        for (let p of proibidos) {
+            let regex = new RegExp("\\b" + p + "\\b", "i");
+            if (regex.test(codigo)) {
+                return `<div style="color:red;padding:10px;border:2px solid red">
+                    ERRO: código bloqueado pela sandbox (uso de "${p}")
+                </div>`;
+            }
+        }
+
+        return `<cegonha>${codigo}</cegonha>`;
+    });
+}
+
+// 2. Mantém SEU onload, só acrescenta a sandbox antes do motor
+window.onload = () => {
+    document.querySelectorAll("div[id^='conteudo']")
+        .forEach(div => {
+            let seguro = sandboxCegonhaProtegida(div.innerHTML);  // passa pela sandbox
+            div.innerHTML = executarCegonhaEngine(seguro);        // motor igualzinho
+        });
+};
+</script>
+
 
 
 
